@@ -39,6 +39,7 @@ public class SignInPage {
     }
 
     public void setPassword(String password) {
+        passwordInput.clear();
         passwordInput.sendKeys(password);
     }
 
@@ -48,5 +49,11 @@ public class SignInPage {
 
     public String getFailedLoginErrorText() {
         return failedLoginTextBlock.getText();
+    }
+
+    public void login(String username, String password) {
+        setUsername(username);
+        setPassword(password);
+        clickLoginButton();
     }
 }

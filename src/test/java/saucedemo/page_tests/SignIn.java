@@ -17,20 +17,16 @@ public class SignIn extends SaucedemoDriverSetUp {
 
     @Test
     public void failedSignIn() {
-        signInPage.setUsername("standart");
-        signInPage.setPassword("secret_sauce");
-        signInPage.clickLoginButton();
-
+        signInPage.login("standart", "secret_sauce");
         Assert.assertEquals(signInPage.getFailedLoginErrorText(),"Epic sadface: Username and password do not match any user in this service.");//failed assertion
     }
 
     @Test
     public void signIn() {
-        signInPage.setUsername("standard_user");
-        signInPage.setPassword("secret_sauce");
-        signInPage.clickLoginButton();
+        signInPage.login("standard_user", "secret_sauce");
+
         inventoryPage = new InventoryPage(driver);
-        wait.until(ExpectedConditions.visibilityOf(inventoryPage.getLastItemCapture()));
+        inventoryPage.waitUntilPageIsFullyLoad();
 
         Assert.assertTrue("Loaded page is not an inventory page with products list",inventoryPage.isCorrectPageOpened());
     }

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by VKontsov on 23.02.2021
@@ -23,9 +25,12 @@ public class InventoryPage {
 
     //Constructor
     private WebDriver driver;
+    private WebDriverWait wait;
 
     public InventoryPage (WebDriver driver){
         this.driver=driver;
+        wait = new WebDriverWait(this.driver, 10);
+
         PageFactory.initElements(driver, this);
     }
 
@@ -59,5 +64,9 @@ public class InventoryPage {
         }   catch (NoSuchElementException ex){
             return false;
         }
+    }
+
+    public void waitUntilPageIsFullyLoad() {
+        wait.until(ExpectedConditions.visibilityOf(getLastItemCapture()));
     }
 }
